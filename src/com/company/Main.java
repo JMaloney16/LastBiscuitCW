@@ -6,43 +6,49 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        int bagOne = 6;
-        int bagTwo = 8;
-        int playerAmountChoice;
-        String playerBagChoice = "";
-        final String TOO_MANY_BISCUITS = "You can't take more biscuits than are in the bag!";
+
+        int barrelOne = 6; // These variables store the amount of biscuits left
+        int barrelTwo = 8;
+
+        int playerAmountChoice; // Variable used for amount of biscuits taken
+        String playerBarrelChoice = ""; // Which barrel is chosen
+        final String TOO_MANY_BISCUITS = "You can't take more biscuits than are in the barrel!";
         boolean gameFinished = false;
 
         while (gameFinished == false){
-            boolean bagConfirmed = false;
+            boolean barrelConfirmed = false;
 
-            System.out.println("Biscuits left - Bag 1: " + bagOne);
-            System.out.println("Biscuits left - Bag 2: " + bagTwo);
+            System.out.println("Biscuits left - barrel 1: " + barrelOne);
+            System.out.println("Biscuits left - barrel 2: " + barrelTwo);
 
-            System.out.print("Biscuits taken by player 1: ");
-            while(!in.hasNextInt() || (in.nextInt() < 0)){
-                System.out.println("Please enter an integer greater than 0.");
-                in.next();
-            }
+            // Check that the user enters a positive integer for the biscuits taken
+            do{
+                System.out.print("Biscuits taken by player 1: ");
+                while (!in.hasNextInt()) {
+                    System.out.println("Please enter a positive integer.");
+                    in.next();
+                }
+                playerAmountChoice = in.nextInt();
+            } while (playerAmountChoice <= 0);
 
-            playerAmountChoice = in.nextInt();
             in.nextLine();
 
-            while (bagConfirmed == false) {
-                System.out.print("From bag1 (one), bag2 (two) or (both)?: ");
-                playerBagChoice = in.nextLine();
+            // Make sure the user enters a correct choice for which barrel.
+            while (barrelConfirmed == false) {
+                System.out.print("From barrel1 (one), barrel2 (two) or (both)?: ");
+                playerBarrelChoice = in.nextLine();
 
-                switch (playerBagChoice) {
+                switch (playerBarrelChoice) {
                     case "one":
 //                        System.out.println("You chose one");
-                        bagConfirmed = true;
+                        barrelConfirmed = true;
                         break;
                     case "two":
 //                        System.out.println("You chose two");
-                        bagConfirmed = true;
+                        barrelConfirmed = true;
                         break;
                     case "both":
-                        bagConfirmed = true;
+                        barrelConfirmed = true;
                         break;
                     default:
                         System.out.println("Please choose one of the three options");
@@ -50,26 +56,99 @@ public class Main {
                 }
             }
 
-            if (playerBagChoice.equals("one")) {
-                if (playerAmountChoice <= bagOne){
-                    bagOne -= playerAmountChoice;
+            // Checks the chosen barrel to be seen if there are enough biscuits to take from it
+            if (playerBarrelChoice.equals("one")) {
+                if (playerAmountChoice <= barrelOne){
+                    barrelOne -= playerAmountChoice;
                 } else{
-                    System.out.println(TOO_MANY_BISCUITS);                }
-            } else if (playerBagChoice.equals("two")) {
-                if (playerAmountChoice <= bagTwo){
-                   bagTwo -= playerAmountChoice;
+                    System.out.println(TOO_MANY_BISCUITS);
+                }
+            } else if (playerBarrelChoice.equals("two")) {
+                if (playerAmountChoice <= barrelTwo){
+                   barrelTwo -= playerAmountChoice;
                 } else{
                     System.out.println(TOO_MANY_BISCUITS);
                 }
             }else{ // If the user chooses both
-                if ((playerAmountChoice <= bagOne) && (playerAmountChoice <= bagTwo)){
-                    bagOne -= playerAmountChoice;
-                    bagTwo -= playerAmountChoice;
+                if ((playerAmountChoice <= barrelOne) && (playerAmountChoice <= barrelTwo)){
+                    barrelOne -= playerAmountChoice;
+                    barrelTwo -= playerAmountChoice;
                 } else{
                     System.out.println(TOO_MANY_BISCUITS);
                 }
             }
 
+            if ((barrelOne == 0) && (barrelTwo == 0)){
+                System.out.println("Winner is player 1");
+                gameFinished = true;
+                break;
+            }
+
+            barrelConfirmed = false;
+
+            System.out.println("Biscuits left - barrel 1: " + barrelOne);
+            System.out.println("Biscuits left - barrel 2: " + barrelTwo);
+
+            do{
+                System.out.print("Biscuits taken by player 2: ");
+                while (!in.hasNextInt()) {
+                    System.out.println("Please enter a positive integer.");
+                    in.next();
+                }
+                playerAmountChoice = in.nextInt();
+            } while (playerAmountChoice <= 0);
+
+            in.nextLine();
+
+            while (barrelConfirmed == false) {
+                System.out.print("From barrel1 (one), barrel2 (two) or (both)?: ");
+                playerBarrelChoice = in.nextLine();
+
+                switch (playerBarrelChoice) {
+                    case "one":
+//                        System.out.println("You chose one");
+                        barrelConfirmed = true;
+                        break;
+                    case "two":
+//                        System.out.println("You chose two");
+                        barrelConfirmed = true;
+                        break;
+                    case "both":
+                        barrelConfirmed = true;
+                        break;
+                    default:
+                        System.out.println("Please choose one of the three options");
+                        break;
+                }
+            }
+
+            if (playerBarrelChoice.equals("one")) {
+                if (playerAmountChoice <= barrelOne){
+                    barrelOne -= playerAmountChoice;
+                } else{
+                    System.out.println(TOO_MANY_BISCUITS);
+                }
+            } else if (playerBarrelChoice.equals("two")) {
+                if (playerAmountChoice <= barrelTwo){
+                    barrelTwo -= playerAmountChoice;
+                } else{
+                    System.out.println(TOO_MANY_BISCUITS);
+                }
+            }else{ // If the user chooses both
+                if ((playerAmountChoice <= barrelOne) && (playerAmountChoice <= barrelTwo)){
+                    barrelOne -= playerAmountChoice;
+                    barrelTwo -= playerAmountChoice;
+                } else{
+                    System.out.println(TOO_MANY_BISCUITS);
+                }
+            }
+
+            if ((barrelOne == 0) && (barrelTwo == 0)){
+                System.out.println("Winner is player 2");
+                gameFinished = true;
+                break;
+            }
         }
     }
+
 }
