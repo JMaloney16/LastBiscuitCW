@@ -7,7 +7,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
 
-        int barrelOne = 6; // These variables store the amount of biscuits left
+        int barrelOne = 6; // These variables store the amount of biscuits Left
         int barrelTwo = 8;
 
         int playerAmountChoice; // Variable used for amount of biscuits taken
@@ -18,8 +18,8 @@ public class Main {
         while (gameFinished == false){
             boolean barrelConfirmed = false;
 
-            System.out.println("Biscuits left - barrel 1: " + barrelOne);
-            System.out.println("Biscuits left - barrel 2: " + barrelTwo);
+            System.out.println("Biscuits Left - Barrel 1: " + barrelOne);
+            System.out.println("Biscuits Left - Barrel 2: " + barrelTwo);
 
             // Check that the user enters a positive integer for the biscuits taken
             do{
@@ -35,7 +35,7 @@ public class Main {
 
             // Make sure the user enters a correct choice for which barrel.
             while (barrelConfirmed == false) {
-                System.out.print("From barrel1 (one), barrel2 (two) or (both)?: ");
+                System.out.print("From barrel1 (one), barrel2 (two), or both (both)? ");
                 playerBarrelChoice = in.nextLine();
 
                 switch (playerBarrelChoice) {
@@ -65,7 +65,7 @@ public class Main {
                 }
             } else if (playerBarrelChoice.equals("two")) {
                 if (playerAmountChoice <= barrelTwo){
-                   barrelTwo -= playerAmountChoice;
+                    barrelTwo -= playerAmountChoice;
                 } else{
                     System.out.println(TOO_MANY_BISCUITS);
                 }
@@ -79,6 +79,8 @@ public class Main {
             }
 
             if ((barrelOne == 0) && (barrelTwo == 0)){
+                System.out.println("Biscuits Left - Barrel 1: " + barrelOne);
+                System.out.println("Biscuits Left - Barrel 2: " + barrelTwo);
                 System.out.println("Winner is player 1");
                 gameFinished = true;
                 break;
@@ -86,8 +88,8 @@ public class Main {
 
             barrelConfirmed = false;
 
-            System.out.println("Biscuits left - barrel 1: " + barrelOne);
-            System.out.println("Biscuits left - barrel 2: " + barrelTwo);
+            System.out.println("Biscuits Left - Barrel 1: " + barrelOne);
+            System.out.println("Biscuits Left - Barrel 2: " + barrelTwo);
 
             do{
                 System.out.print("Biscuits taken by player 2: ");
@@ -101,7 +103,7 @@ public class Main {
             in.nextLine();
 
             while (barrelConfirmed == false) {
-                System.out.print("From barrel1 (one), barrel2 (two) or (both)?: ");
+                System.out.print("From barrel1 (one), barrel2 (two), or both (both)? ");
                 playerBarrelChoice = in.nextLine();
 
                 switch (playerBarrelChoice) {
@@ -144,6 +146,8 @@ public class Main {
             }
 
             if ((barrelOne == 0) && (barrelTwo == 0)){
+                System.out.println("Biscuits Left - Barrel 1: " + barrelOne);
+                System.out.println("Biscuits Left - Barrel 2: " + barrelTwo);
                 System.out.println("Winner is player 2");
                 gameFinished = true;
                 break;
