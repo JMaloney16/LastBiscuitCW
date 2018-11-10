@@ -6,18 +6,20 @@ public class LastBiscuit {
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
+
         final String TOO_MANY_BISCUITS = "You can't take more biscuits than are in the barrel!";
+        final String INVALID_INPUT = "Invalid input, please enter a valid input.";
+
         int barrelOne = 6; // These variables store the amount of biscuits left in each barrel
         int barrelTwo = 8;
 
         int currentPlayer = 1; // This value tracks who is the current player
         int playerAmountChoice; // Variable used for amount of biscuits taken
         String playerBarrelChoice; // Which barrel is chosen by the player
-
-        boolean gameFinished = false;
         boolean roundFinished;
+        // Used for validation so the user is forced to enter a correct value before switching players
 
-        while (!gameFinished){
+        while (barrelOne > 0 || barrelTwo > 0) {
             roundFinished = false;
             biscuitsLeft(barrelOne, barrelTwo);
 
@@ -25,22 +27,20 @@ public class LastBiscuit {
                 boolean barrelConfirmed = false;
                 playerBarrelChoice = "";
                 // Check that the user enters a positive integer for the biscuits taken
-                do{
+                do {
                     System.out.print("Biscuits taken by player " + currentPlayer + ": ");
                     while (!in.hasNextInt()) {
-                        System.out.println("Please enter a positive integer.");
+                        System.out.println(INVALID_INPUT);
                         in.next();
                     }
                     playerAmountChoice = in.nextInt();
-                    in.nextLine();
+                    in.nextLine(); // Clear the buffer for the next user input
                 } while (playerAmountChoice <= 0);
 
                 // Make sure the user enters a correct choice for which barrel.
                 while (!barrelConfirmed) {
-
                     System.out.print("From barrel1 (one), barrel2 (two), or both (both)? ");
                     playerBarrelChoice = in.nextLine();
-
                     switch (playerBarrelChoice) {
                         case "one":
                             barrelConfirmed = true;
@@ -52,12 +52,11 @@ public class LastBiscuit {
                             barrelConfirmed = true;
                             break;
                         default:
-                            System.out.println("Please choose one of the three options");
+                            System.out.println(INVALID_INPUT);
                             break;
                     }
                 }
-
-                // Checks the chosen barrel to be seen if there are enough biscuits to take from it
+                // Checks the chosen barrel to see if there are enough biscuits to take from it
                 switch (playerBarrelChoice) {
                     case "one":
                         if (playerAmountChoice <= barrelOne) {
@@ -79,7 +78,7 @@ public class LastBiscuit {
                         if ((playerAmountChoice <= barrelOne) && (playerAmountChoice <= barrelTwo)) {
                             barrelOne -= playerAmountChoice;
                             barrelTwo -= playerAmountChoice;
-                            roundFinished = true;
+                            roundFinished = true; // The player has made a valid choice and the game can move on
                         } else {
                             System.out.println(TOO_MANY_BISCUITS);
                         }
@@ -87,12 +86,11 @@ public class LastBiscuit {
                 }
             }
 
-            if ((barrelOne == 0) && (barrelTwo == 0)){ // If the game has been won
+            if ((barrelOne == 0) && (barrelTwo == 0)) { // If the game has been won
                 biscuitsLeft(barrelOne, barrelTwo);
                 System.out.println("Winner is player " + currentPlayer);
-                gameFinished = true;
-            } else{ // If the game is still going, switch player
-                switch (currentPlayer){
+            } else { // If the game is still going, switch player
+                switch (currentPlayer) {
                     case 1:
                         currentPlayer = 2;
                         break;
@@ -103,7 +101,9 @@ public class LastBiscuit {
             }
         }
     }
-    static void biscuitsLeft(int barrelOne,int barrelTwo){
+
+    // Method for biscuits left output instead of a final string because of the variables
+    static void biscuitsLeft(int barrelOne, int barrelTwo) {
         System.out.println("Biscuits Left - Barrel 1: " + barrelOne);
         System.out.println("Biscuits Left - Barrel 2: " + barrelTwo);
     }
