@@ -14,14 +14,14 @@ public class LastBiscuit {
         int barrelTwo = 8;
 
         int currentPlayer = 1; // This value tracks who is the current player
-        int playerAmountChoice; // Variable used for amount of biscuits taken
-        String playerBarrelChoice; // Which barrel is chosen by the player
+        int playerAmountChoice;
+        String playerBarrelChoice;
         boolean roundFinished;
         // Used for validation so the user is forced to enter a correct value before switching players
 
         while (barrelOne > 0 || barrelTwo > 0) {
             roundFinished = false;
-            biscuitsLeft(barrelOne, barrelTwo);
+            biscuitsLeft(barrelOne, barrelTwo); // Calls method that outputs the biscuits left in each barrel
 
             while (!roundFinished) {
                 boolean barrelConfirmed = false;
@@ -29,7 +29,7 @@ public class LastBiscuit {
                 // Check that the user enters a positive integer for the biscuits taken
                 do {
                     System.out.print("Biscuits taken by player " + currentPlayer + ": ");
-                    while (!in.hasNextInt()) {
+                    while (!in.hasNextInt()) { // Check that the user enters an integer
                         System.out.println(INVALID_INPUT);
                         in.next();
                     }
@@ -37,11 +37,11 @@ public class LastBiscuit {
                     in.nextLine(); // Clear the buffer for the next user input
                 } while (playerAmountChoice <= 0);
 
-                // Make sure the user enters a correct choice for which barrel.
+                // Take user input for barrel choice and make sure it's valid
                 while (!barrelConfirmed) {
                     System.out.print("From barrel1 (one), barrel2 (two), or both (both)? ");
                     playerBarrelChoice = in.nextLine();
-                    switch (playerBarrelChoice) {
+                    switch (playerBarrelChoice.toLowerCase()) {
                         case "one":
                             barrelConfirmed = true;
                             break;
@@ -74,7 +74,7 @@ public class LastBiscuit {
                             System.out.println(TOO_MANY_BISCUITS);
                         }
                         break;
-                    default:  // If the user chooses both barrels
+                    case "both":
                         if ((playerAmountChoice <= barrelOne) && (playerAmountChoice <= barrelTwo)) {
                             barrelOne -= playerAmountChoice;
                             barrelTwo -= playerAmountChoice;
@@ -102,7 +102,7 @@ public class LastBiscuit {
         }
     }
 
-    // Method for biscuits left output instead of a final string because of the variables
+    // Method for biscuits left output instead of using a final string because of the barrel variables
     static void biscuitsLeft(int barrelOne, int barrelTwo) {
         System.out.println("Biscuits Left - Barrel 1: " + barrelOne);
         System.out.println("Biscuits Left - Barrel 2: " + barrelTwo);
